@@ -17,7 +17,8 @@ class DBClient {
   }
 
   isAlive() {
-    return this.client.isConnected();
+    if (this.client.db())
+      return true;
   }
 
   async nbUsers() {
@@ -26,7 +27,8 @@ class DBClient {
   }
 
   async nbFiles() {
-    return this.client.db().collection('files').countDocuments();
+    const myDb = this.client.db();
+    return myDb.collection('files').countDocuments();
   }
 }
 
