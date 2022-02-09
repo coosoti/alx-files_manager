@@ -7,12 +7,13 @@ class DBClient {
     const database = process.env.DB_DATABASE || 'files_manager';
     const uri = `mongodb://${host}:${port}/${database}`;
 
-    this.client = MongoClient(uri);
+    //this.client = MongoClient(uri);
+    //this.client.connect();
+    this.client = MongoClient(uri, {
+      useUnifiedTopology: true,
+      useUnifiedTopology: true,
+    });
     this.client.connect();
-    /*const client = new MongoClient(uri, {
-      useUnifiedTopology: true,
-      useUnifiedTopology: true,
-      }); */
   }
 
   isAlive() {
@@ -20,11 +21,12 @@ class DBClient {
   }
 
   async nbUsers() {
-    return this.db.collection('users').countDocuments();
+    const myDb = this.client.db();
+    return myDb.collection('users').countDocuments();
   }
 
   async nbFiles() {
-    return this.db.collection('files').countDocuments();
+    return this.client.db().collection('files').countDocuments();
   }
 }
 
