@@ -7,7 +7,7 @@ class DBClient {
     const database = process.env.DB_DATABASE || 'files_manager';
     const uri = `mongodb://${host}:${port}/${database}`;
 
-    this.client = MongoClient(`mongodb://${host}:${port}/${database}`);
+    this.client = MongoClient(uri);
     this.client.connect();
     /*const client = new MongoClient(uri, {
       useUnifiedTopology: true,
@@ -23,9 +23,9 @@ class DBClient {
     return this.db.collection('users').countDocuments();
   }
 
-    async nbFiles() {
-      return this.db.collection('files').countDocuments();
-    }
+  async nbFiles() {
+    return this.db.collection('files').countDocuments();
+  }
 }
 
 const dbClient = new DBClient();
