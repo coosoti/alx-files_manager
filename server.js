@@ -4,8 +4,8 @@ import router from './routes/index';
 const app = express();
 const port = process.env.DB_PORT || 5000;
 
-app.use(express.urlencoded());
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(router);
 
 app.listen(port, () => {
