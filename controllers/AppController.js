@@ -3,16 +3,20 @@ import redisClient from '../utils/redis';
 
 class AppController {
   static getStatus(req, res) {
-    const redis = redisClient.isAlive();
-    const db = dbClient.isAlive();
-    res.status(200).send({ redis, db });
+    res.status(200).send({
+      redis: redisClient.isAlive(),
+      db: dbClient.isAlive(),
+    });
   }
 
   static async getStats(req, res) {
     const users = await dbClient.nbUsers();
     const files = await dbClient.nbFiles();
 
-    res.status(200).send({ users, files });
+    res.status(200).send({
+      users: await dbClient.nbUsers(),
+      files: await dbClient.nbFiles(),
+    });
   }
 }
 
