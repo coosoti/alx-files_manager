@@ -20,7 +20,7 @@ class UsersController {
     const user = await users.findOne({ email });
 
     if (user) {
-      res.status(400).send({ error: 'Alredy exist' });
+      res.status(400).send({ error: 'Already exist' });
       return;
     }
 
